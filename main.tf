@@ -9,17 +9,17 @@ module "vpc" {
   azs                  = ["us-east-1a", "us-east-1b"]
 }
 
-module "iam" {
-  source = "./modules/iam"
-}
 
 module "cloudwatch" {
   source = "./modules/cloudwatch"
 }
 
+module "iam" {
+  source = "./modules/iam"
+}
 module "glue" {
   source         = "./modules/glue"
-  glue_role_arn  = module.iam.bedrock_role_arn
+  glue_role_arn  = module.iam.glue_role_arn
   s3_input_path  = "s3://your-bucket/input/"
 }
 

@@ -11,10 +11,6 @@ resource "aws_subnet" "private" {
   tags              = { Name = "private-subnet-${count.index}" }
 }
 
-output "vpc_id" {
-  value = aws_vpc.main.id
-}
-
 output "private_subnet_ids" {
   value = aws_subnet.private[*].id
 }

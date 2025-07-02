@@ -18,10 +18,17 @@ module "iam" {
   source = "./modules/iam"
 }
 module "glue" {
-  source         = "./modules/glue"
-  glue_role_arn  = module.iam.glue_role_arn
-  s3_input_path  = "s3://your-bucket/input/"
+  source             = "./modules/glue"
+
+  glue_database_name = "bedrock_database"
+  glue_crawler_name  = "bedrock_crawler"
+  glue_job_name      = "bedrock_job"
+  glue_role_arn      = module.iam.glue_role_arn
+  script_path        = "s3://your-bucket/scripts/sample_glue_job.py"
+  s3_input_path      = "s3://bedrock-glue-scripts-bucket/input/"
+  subnet_ids         = module.vpc.private_subnet_ids
 }
+
 
 module "bedrock" {
   source             = "./modules/bedrock"
